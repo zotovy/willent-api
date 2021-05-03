@@ -5,10 +5,18 @@ type User = {
     name: string;
     email: string;
     whoIs?: string;
+    password: string;
     profileImage?: string;
     posts: Post[];
-    seen: Post[];
+    seen: number[];
     createdAt: Date;
 }
 
 export default User;
+
+
+export type RawSignupData = {
+    name: string;
+    email: string;
+    password: string;
+}

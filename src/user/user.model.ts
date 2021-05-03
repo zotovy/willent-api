@@ -1,5 +1,6 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Post } from "../post/post.model";
+import { AuthTokens } from "../auth/token.model";
 
 @ObjectType()
 export class User {
@@ -26,4 +27,13 @@ export class User {
 
     @Field()
     createdAt: Date;
+}
+
+@ObjectType()
+export class UserWithAuthTokens {
+    @Field(returns => User)
+    user: User;
+
+    @Field(returns => AuthTokens)
+    tokens: AuthTokens;
 }
