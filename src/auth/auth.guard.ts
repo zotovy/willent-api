@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
             return false;
         }
 
-        ctx.user = await this.authService.decodeHeader(ctx.headers.authorization);
+        ctx.userId = await this.authService.decodeHeader(ctx.headers.authorization);
         return true;
     }
 }

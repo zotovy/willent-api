@@ -40,6 +40,11 @@ export class UserService {
             tokens: this.authService.generateTokens(user),
         };
     }
+
+    updateToken(refresh: string) {
+        const id = this.authService.decodeToken(refresh);
+        return this.authService.generateTokens({ id });
+    }
 }
 
 export type UserWithTokens = { user: User, tokens: AuthTokens };
