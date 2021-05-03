@@ -20,7 +20,8 @@ export class AuthService {
     /// Decodes JWT token and return decoded user id
     public decodeToken(token: string): number {
         try {
-            return parseInt(jwt.verify(token, this.tokenKey) as string);
+            // @ts-ignore
+            return parseInt(jwt.verify(token, this.tokenKey).id);
         } catch (err) {
             const message = 'Token error: ' + (err.message || err.name);
             throw new HttpException(message, HttpStatus.UNAUTHORIZED);

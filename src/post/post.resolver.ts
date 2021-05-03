@@ -1,8 +1,11 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Post } from "./post.model";
 import { PostService } from "./post.service";
 import { CreatePostArgs } from "./dtos/create-post.args";
 import { GetPopularPosts } from "./dtos/popular-posts.args";
+import { UseGuards } from "@nestjs/common";
+import { AuthGuard } from "../auth/auth.guard";
+import { UserId } from "../helpers/user.decorator";
 
 @Resolver()
 export class PostResolver {
@@ -15,9 +18,10 @@ export class PostResolver {
         return this.postService.getPopular(args.from, args.amount);
     }
 
-
+    @UseGuards(AuthGuard)
     @Mutation(returns => Post)
-    async createPost(@Args() args: CreatePostArgs) {
+    async createPost(@Args() args: CreatePostArgs,  @UserId() userId: number) {
+        args.authorId = userId;
         return await this.postService.create(args);
     }
 }
