@@ -13,3 +13,12 @@ type Post = {
 }
 
 export default Post;
+
+export type CreatePostData = {
+    title: string;
+    content: string;
+    authorId: number;
+    coverImage: string;
+    tags: string[];
+    timeToRead: number;
+}

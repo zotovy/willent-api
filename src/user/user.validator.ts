@@ -1,17 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import * as Joi from "joi";
+import BaseValidator from "../helpers/base-validator";
 
 @Injectable()
-export class UserValidator {
+export class UserValidator extends BaseValidator{
 
     private readonly passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
-
-    private validateOrThrow(data: any, schema: Joi.Schema) {
-        const result = schema.validate(data);
-        if (result.error) {
-            throw new HttpException(result.error, HttpStatus.BAD_REQUEST);
-        }
-    }
 
     private readonly signupSchema = Joi.object({
         name: Joi.string().min(1).max(255),
