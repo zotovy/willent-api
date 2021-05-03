@@ -11,7 +11,24 @@ generator client {
 }
 
 model User {
-  id         Int       @default(autoincrement()) @id
-  name       String
-  createdAt  DateTime  @default(now())
+    id           Int       @id @default(autoincrement())
+    name         String    @db.VarChar(255)
+    whoIs        String?   @db.VarChar(255)
+    profileImage String?   @db.VarChar(1200)
+    posts        Post[]
+    seen         Int[]
+    createdAt    DateTime  @default(now())
+}
+
+model Post {
+    id          Int       @default(autoincrement()) @id
+    title       String    @db.VarChar(255)
+    content     String
+    createdAt   DateTime  @default(now())
+    author      User?     @relation(fields: [authorId], references: [id])
+    authorId    Int
+    seenBy      Int[]
+    coverImage  String    @db.VarChar(1200)
+    tags        String[]
+    timeToRead  Int
 }
