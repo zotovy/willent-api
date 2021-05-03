@@ -18,7 +18,7 @@ export class Post {
     @Field(type => User)
     author: User;
 
-    @Field(type => Int)
+    @Field(type => [Int])
     seenBy: number[];
 
     @Field()

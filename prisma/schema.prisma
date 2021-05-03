@@ -33,4 +33,5 @@ model Post {
     coverImage  String    @db.VarChar(1200)
     tags        String[]
     timeToRead  Int
+    rating      Float     @default(100)
 }

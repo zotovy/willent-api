@@ -26,7 +26,7 @@ export class PostService {
         return await this.prisma.post.findMany({
             orderBy: [
                 {
-                    seenBy: "asc"
+                    rating: "desc",
                 }
             ],
             take: amount,
