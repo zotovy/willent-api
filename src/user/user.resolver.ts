@@ -3,6 +3,8 @@ import { User, UserWithAuthTokens } from "./user.model";
 import { UserService } from "./user.service";
 import { UseGuards } from "@nestjs/common";
 import { AuthGuard } from "../auth/auth.guard";
+import { LoginArgs } from "./dtos/login.args";
+import { SignupArgs } from "../post/dtos/signup.args";
 
 @Resolver(of => User)
 export class UserResolver {
@@ -16,19 +18,12 @@ export class UserResolver {
     }
 
     @Mutation(returns => UserWithAuthTokens)
-    async signup(
-        @Args({ name: "name", type: () => String }) name,
-        @Args({ name: "email", type: () => String }) email,
-        @Args({ name: "password", type: () => String }) password,
-    ) {
+    async signup({ email, password, name }: SignupArgs) {
         return this.userService.signup({ email, password, name });
     }
 
     @Mutation(returns => UserWithAuthTokens, { nullable: true })
-    async login(
-        @Args({ name: "email", type: () => String }) email,
-        @Args({ name: "password", type: () => String }) password,
-    ) {
+    async login(@Args() { email, password }: LoginArgs) {
         return this.userService.login(email, password);
     }
 }
