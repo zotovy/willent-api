@@ -113,7 +113,7 @@ describe('UserService', () => {
             spyException(prisma.user, "update", Prisma.PrismaClientKnownRequestError);
             spy(validator, "validateUpdateData", undefined);
 
-            expect(await service.updateUser(user.id, data).catch(e => e)).toEqual(HttpException);
+            expect(await service.updateUser(user.id, data).catch(e => e)).toBeInstanceOf(HttpException);
         });
     });
 });
