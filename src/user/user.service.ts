@@ -42,7 +42,7 @@ export class UserService {
     }
 
     updateToken(refresh: string) {
-        const id = this.authService.decodeToken(refresh);
+        const id = this.authService.decodeToken(refresh, "refresh");
         return this.authService.generateTokens({ id });
     }
 }

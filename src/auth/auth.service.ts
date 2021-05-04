@@ -7,21 +7,28 @@ import { AuthTokens, TokenType } from "./types";
 @Injectable()
 export class AuthService {
 
-    private get tokenKey() {
-        return process.env.TOKEN_KEY as string;
+    private get tokenAccessKey() {
+        return process.env.TOKEN_KEY_ACCESS as string;
+    }
+
+    private get tokenRefreshKey() {
+        return process.env.TOKEN_KEY_REFRESH as string;
     }
 
     /// Generate `access` or `refresh` token for received user
     private generateToken({ id }: User | { id: number }, type: TokenType): string {
-        const expiresIn: string = type === "access" ? "10m" : "1y";
-        return jwt.sign({ id }, this.tokenKey, { expiresIn });
+        const expiresIn = type === "access" ? "10m" : "1y";
+        const key = type === "access" ? this.tokenAccessKey : this.tokenRefreshKey;
+        return jwt.sign({ id }, key, { expiresIn });
     }
 
     /// Decodes JWT token and return decoded user id
-    public decodeToken(token: string): number {
+    public decodeToken(token: string, type: TokenType): number {
+        const key = type === "access" ? this.tokenAccessKey : this.tokenRefreshKey;
+
         try {
             // @ts-ignore
-            return parseInt(jwt.verify(token, this.tokenKey).id);
+            return parseInt(jwt.verify(token, key).id);
         } catch (err) {
             const message = 'Token error: ' + (err.message || err.name);
             throw new HttpException(message, HttpStatus.UNAUTHORIZED);
@@ -36,7 +43,7 @@ export class AuthService {
             throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
         }
 
-        return this.decodeToken(split[1]);
+        return this.decodeToken(split[1], "access");
     }
 
     /// Generate both AuthTokens for received user
