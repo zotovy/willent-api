@@ -23,7 +23,7 @@ export class PostService {
     }
 
     async getPopular(from = 0, amount = 50) {
-        return await this.prisma.post.findMany({
+        return this.prisma.post.findMany({
             orderBy: [
                 {
                     rating: "desc",
@@ -31,6 +31,15 @@ export class PostService {
             ],
             take: amount,
             skip: from,
+            include: {
+                author: true,
+            },
+        });
+    }
+
+    async getById(id: number) {
+        return this.prisma.post.findFirst({
+            where: { id },
             include: {
                 author: true,
             },

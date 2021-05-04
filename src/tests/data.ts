@@ -1,4 +1,5 @@
 import User from "../user/user.type";
+import Post from "../post/post.type";
 import { AuthTokens } from "../auth/types";
 
 export const user: User = {
@@ -16,4 +17,16 @@ export const user: User = {
 export const tokens: AuthTokens = {
     refresh: "123.123.123",
     access: "456.456.456",
+}
+
+export const post: Post = {
+    author: user,
+    content: "this is my post",
+    coverImage: "https://i.ytimg.com/vi/w8AYmSdaQZI/maxresdefault.jpg",
+    createdAt: new Date(),
+    id: 1,
+    seenBy: [],
+    tags: ["fun", "backend"],
+    timeToRead: 5,
+    title: "this is my post"
 }

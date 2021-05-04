@@ -1,4 +1,4 @@
-import { User } from "../user/user.model";
+import User from "../user/user.type";
 
 type Post = {
     id: number;
