@@ -4,6 +4,7 @@ import { PrismaService } from "../prisma/prisma.service";
 import { AuthService } from "../auth/auth.service";
 import { UserValidator } from "./user.validator";
 import { AuthTokens } from "../auth/types";
+import * as fs from "fs";
 
 @Injectable()
 export class UserService {
@@ -55,6 +56,18 @@ export class UserService {
         }).catch(e => {
             throw new HttpException(this.prisma.handleError(e), HttpStatus.BAD_REQUEST);
         })
+    }
+
+    // Update user image
+    async updateUserImage(id: number, hasImage: boolean) {
+        return this.prisma.user.update({
+            where: { id },
+            data: {
+                profileImage: hasImage
+                    ? process.env.SERVER_URL + "/static/profile-images/" + id + ".jpg"
+                    : null,
+            }
+        });
     }
 }
 

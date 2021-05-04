@@ -19,3 +19,21 @@ export class AuthGuard implements CanActivate {
         return true;
     }
 }
+
+
+@Injectable()
+export class HttpAuthGuard implements CanActivate {
+    constructor(private readonly authService: AuthService) {
+    }
+
+    async canActivate(context: ExecutionContext): Promise<boolean> {
+        const req = context.switchToHttp().getRequest();
+
+        if (!req.headers?.authorization) {
+            return false;
+        }
+
+        req.headers.userId = await this.authService.decodeHeader(req.headers.authorization);
+        return true;
+    }
+}
