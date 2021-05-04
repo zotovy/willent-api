@@ -19,7 +19,7 @@ export class UserResolver {
     }
 
     @Mutation(returns => UserWithAuthTokens)
-    async signup({ email, password, name }: SignupArgs) {
+    async signup(@Args() { email, password, name }: SignupArgs) {
         return this.userService.signup({ email, password, name });
     }
 
