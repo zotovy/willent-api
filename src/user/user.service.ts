@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import User, { RawSignupData } from "./user.type";
+import User, { RawSignupData, RawUpdateData } from "./user.type";
 import { PrismaService } from "../prisma/prisma.service";
 import { AuthService } from "../auth/auth.service";
 import { UserValidator } from "./user.validator";
@@ -11,7 +11,7 @@ export class UserService {
         private readonly prisma: PrismaService,
         private readonly authService: AuthService,
         private readonly userValidator: UserValidator,
-        ) {
+    ) {
     }
 
     async findAll() {
@@ -44,6 +44,17 @@ export class UserService {
     updateToken(refresh: string) {
         const id = this.authService.decodeToken(refresh, "refresh");
         return this.authService.generateTokens({ id });
+    }
+
+    async updateUser(id: number, data: RawUpdateData) {
+        if (Object.keys(data).length === 0) return;
+        this.userValidator.validateUpdateData(data);
+        return this.prisma.user.update({
+            where: { id },
+            data,
+        }).catch(e => {
+            throw new HttpException(this.prisma.handleError(e), HttpStatus.BAD_REQUEST);
+        })
     }
 }
 

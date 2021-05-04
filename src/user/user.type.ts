@@ -4,9 +4,9 @@ type User = {
     id: number;
     name: string;
     email: string;
-    whoIs?: string;
+    whoIs: string | null;
     password: string;
-    profileImage?: string;
+    profileImage: string | null;
     posts: Post[];
     seen: number[];
     createdAt: Date;
@@ -20,3 +20,5 @@ export type RawSignupData = {
     email: string;
     password: string;
 }
+
+export type RawUpdateData = Partial<RawSignupData>;
