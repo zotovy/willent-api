@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserService } from '../user/user.service';
-import { PrismaService } from "../prisma/prisma.service";
+import { UserService } from '../../src/user/user.service';
+import { PrismaService } from "../../src/prisma/prisma.service";
 import { tokens, user } from "./data";
 import { Prisma } from "@prisma/client";
-import { AuthService } from "../auth/auth.service";
-import { UserValidator } from "../user/user.validator";
-import { RawSignupData } from "../user/user.type";
+import { AuthService } from "../../src/auth/auth.service";
+import { UserValidator } from "../../src/user/user.validator";
+import { RawSignupData } from "../../src/user/user.type";
 import { spy, spyException } from "./helpers";
 import { HttpException } from "@nestjs/common";
 import { JsonWebTokenError } from "jsonwebtoken";

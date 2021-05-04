@@ -29,4 +29,11 @@ export class PostResolver {
         args.authorId = userId;
         return await this.postService.create(args);
     }
+
+    @UseGuards(AuthGuard)
+    @Mutation(returns => Post, { nullable: true })
+    async seePost(@Args({ name: "id", type: () => Int }) id: number, @UserId() userId: number) {
+        return this.postService.seePost(id, userId);
+    }
+
 }

@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PostService } from '../post/post.service';
+import { PostService } from '../../src/post/post.service';
 import { spy } from "./helpers";
 import { post } from "./data";
-import { PrismaService } from "../prisma/prisma.service";
-import { PostValidator } from "../post/post.validator";
+import { PrismaService } from "../../src/prisma/prisma.service";
+import { PostValidator } from "../../src/post/post.validator";
 
 describe('PostService', () => {
     let service: PostService;

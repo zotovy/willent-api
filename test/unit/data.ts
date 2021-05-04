@@ -1,6 +1,6 @@
-import User from "../user/user.type";
-import Post from "../post/post.type";
-import { AuthTokens } from "../auth/types";
+import User from "../../src/user/user.type";
+import Post from "../../src/post/post.type";
+import { AuthTokens } from "../../src/auth/types";
 
 export const user: User = {
     id: 1,

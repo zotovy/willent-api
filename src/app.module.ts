@@ -46,7 +46,7 @@ import { GraphQLFormattedError } from "graphql";
                 } else {
                     return error;
                 }
-            },
+            }
         }),
         UserModule,
         PrismaModule,

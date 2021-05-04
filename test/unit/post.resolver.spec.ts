@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PostResolver } from '../post/post.resolver';
-import { PostService } from "../post/post.service";
-import { PrismaService } from "../prisma/prisma.service";
-import { PostValidator } from "../post/post.validator";
+import { PostResolver } from '../../src/post/post.resolver';
+import { PostService } from "../../src/post/post.service";
+import { PrismaService } from "../../src/prisma/prisma.service";
+import { PostValidator } from "../../src/post/post.validator";
 import { spy } from "./helpers";
 import { post } from "./data";
-import { AuthService } from "../auth/auth.service";
-import { AuthGuard } from "../auth/auth.guard";
+import { AuthService } from "../../src/auth/auth.service";
+import { AuthGuard } from "../../src/auth/auth.guard";
 
 describe('PostResolver', () => {
     let resolver: PostResolver;
