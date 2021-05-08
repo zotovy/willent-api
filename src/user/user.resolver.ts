@@ -20,6 +20,12 @@ export class UserResolver {
         return this.userService.findAll();
     }
 
+    @UseGuards(AuthGuard)
+    @Query(returns => User, { nullable: true })
+    async me(@UserId() id: number) {
+        return this.userService.getById(id);
+    }
+
     @Mutation(returns => UserWithAuthTokens)
     async signup(@Args() { email, password, name }: SignupArgs) {
         return this.userService.signup({ email, password, name });

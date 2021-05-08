@@ -69,6 +69,12 @@ export class UserService {
             }
         });
     }
+
+    async getById(id: number) {
+        return this.prisma.user.findFirst({
+            where: { id }
+        });
+    }
 }
 
 export type UserWithTokens = { user: User, tokens: AuthTokens };

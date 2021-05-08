@@ -28,5 +28,6 @@ export const post: Post = {
     seenBy: [],
     tags: ["fun", "backend"],
     timeToRead: 5,
-    title: "this is my post"
+    title: "this is my post",
+    subtitle: "this is my poooost"
 }

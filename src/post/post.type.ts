@@ -10,6 +10,7 @@ type Post = {
     coverImage: string;
     tags: string[];
     timeToRead: number;
+    subtitle: string;
 }
 
 export default Post;

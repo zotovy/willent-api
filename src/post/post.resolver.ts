@@ -3,7 +3,6 @@ import { PostsByTagsArgs } from "./dtos/get-posts";
 import { Post } from "./post.model";
 import { PostService } from "./post.service";
 import { CreatePostArgs } from "./dtos/create-post.args";
-import { GetPopularPosts } from "./dtos/popular-posts.args";
 import { UseGuards } from "@nestjs/common";
 import { AuthGuard } from "../auth/auth.guard";
 import { UserId } from "../helpers/user.decorator";
@@ -15,13 +14,8 @@ export class PostResolver {
     }
 
     @Query(returns => [Post])
-    async popularPosts(@Args() args: GetPopularPosts) {
-        return this.postService.getPopular(args.from, args.amount);
-    }
-
-    @Query(returns => [Post])
     async postsByTags(@Args() args: PostsByTagsArgs) {
-        return this.postService.getPostsByTags(args.tags);
+        return this.postService.getPostsByTags(args.tags, args.from, args.amount);
     }
 
     @Query(returns => Post, { nullable: true })

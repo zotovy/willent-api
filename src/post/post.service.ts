@@ -28,21 +28,6 @@ export class PostService {
         });
     }
 
-    async getPopular(from = 0, amount = 50) {
-        return this.prisma.post.findMany({
-            orderBy: [
-                {
-                    rating: "desc",
-                }
-            ],
-            take: amount,
-            skip: from,
-            include: {
-                author: true,
-            },
-        });
-    }
-
     async getById(id: number) {
         return this.prisma.post.findFirst({
             where: { id },
@@ -88,13 +73,24 @@ export class PostService {
         return post;
     }
 
-    async getPostsByTags(tags: string[]) {
+    async getPostsByTags(tags: string[], from = 0, amount = 50) {
         return this.prisma.post.findMany({
+
             where: {
                 tags: {
                     hasEvery: tags,
                 }
-            }
+            },
+            orderBy: [
+                {
+                    rating: "desc",
+                }
+            ],
+            take: amount,
+            skip: from,
+            include: {
+                author: true,
+            },
         });
     }
 }

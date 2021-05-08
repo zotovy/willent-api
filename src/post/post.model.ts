@@ -13,6 +13,9 @@ export class Post {
     content: string;
 
     @Field()
+    subtitle: string;
+
+    @Field()
     createdAt: Date;
 
     @Field(type => User)
