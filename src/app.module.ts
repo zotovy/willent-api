@@ -52,12 +52,6 @@ import { GraphQLFormattedError } from "graphql";
         PrismaModule,
         PostModule,
         AuthModule,
-    ],
-    providers: [
-        {
-            provide: APP_GUARD,
-            useClass: ApiVersionGuard,
-        },
     ]
 })
 export class AppModule {

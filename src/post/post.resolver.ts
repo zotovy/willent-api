@@ -1,4 +1,5 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { PostsByTagsArgs } from "./dtos/get-posts";
 import { Post } from "./post.model";
 import { PostService } from "./post.service";
 import { CreatePostArgs } from "./dtos/create-post.args";
@@ -18,6 +19,11 @@ export class PostResolver {
         return this.postService.getPopular(args.from, args.amount);
     }
 
+    @Query(returns => [Post])
+    async postsByTags(@Args() args: PostsByTagsArgs) {
+        return this.postService.getPostsByTags(args.tags);
+    }
+
     @Query(returns => Post, { nullable: true })
     async post(@Args({ name: "id", type: () => Int }) id: number) {
         return this.postService.getById(id);
@@ -35,5 +41,4 @@ export class PostResolver {
     async seePost(@Args({ name: "id", type: () => Int }) id: number, @UserId() userId: number) {
         return this.postService.seePost(id, userId);
     }
-
 }

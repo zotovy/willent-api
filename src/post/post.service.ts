@@ -87,6 +87,16 @@ export class PostService {
         }
         return post;
     }
+
+    async getPostsByTags(tags: string[]) {
+        return this.prisma.post.findMany({
+            where: {
+                tags: {
+                    hasEvery: tags,
+                }
+            }
+        });
+    }
 }
 
 

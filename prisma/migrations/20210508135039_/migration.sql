@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Post" ADD COLUMN     "subtitle" VARCHAR(2048) NOT NULL DEFAULT E'';
